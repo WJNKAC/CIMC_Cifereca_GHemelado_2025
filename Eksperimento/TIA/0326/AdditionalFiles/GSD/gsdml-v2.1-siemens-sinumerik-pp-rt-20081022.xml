@@ -1,0 +1,349 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	PROFINET GSD for Siemens SINUMERIK PP 
+		GSD V2.1 for temporary use with legacy controllers: 
+		         - RT only
+		         - single submodule per module
+		         - no physical device
+		         - single API
+	Author: Gerhard Scheithauer 
+	State: Baselined
+	History:
+		20070628: first version
+		20071030: input status byte (byte 10) not applicable
+		20071201: diagnostic slot included
+		20080122: Comments overworked, ProductFamily="SINUMERIK"
+		20080601: PN-Certification 
+		20080701: Change to GSD version V2.1 (internal 080810)
+		20081022: GSDML-DeviceProfile in Line 21 corrected
+
+-->
+<ISO15745Profile xmlns="http://www.profibus.com/GSDML/2003/11/DeviceProfile" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.profibus.com/GSDML/2003/11/DeviceProfile
+..\XSD\GSDML-DeviceProfile-v2.1.xsd">
+	<!-- ProfileHeader Definition as defined in ISO15745-1. Please do not change the content. -->
+	<ProfileHeader>
+		<ProfileIdentification>PROFINET Device Profile</ProfileIdentification>
+		<ProfileRevision>1.00</ProfileRevision>
+		<ProfileName>Device Profile for PROFINET Devices</ProfileName>
+		<ProfileSource>PROFIBUS Nutzerorganisation e. V. (PNO)</ProfileSource>
+		<ProfileClassID>Device</ProfileClassID>
+		<ISO15745Reference>
+			<ISO15745Part>4</ISO15745Part>
+			<ISO15745Edition>1</ISO15745Edition>
+			<ProfileTechnology>GSDML</ProfileTechnology>
+		</ISO15745Reference>
+	</ProfileHeader>
+	<ProfileBody>
+		<DeviceIdentity VendorID="0x002A" DeviceID="0x0307">
+			<InfoText TextId="IDT_FamilyDescription"/>
+			<VendorName Value="Siemens AG"/>
+		</DeviceIdentity>
+		<DeviceFunction>
+			<Family MainFamily="I/O" ProductFamily="SINUMERIK"/>
+		</DeviceFunction>
+		<ApplicationProcess>
+			<!-- ============================================================================================ -->
+			<DeviceAccessPointList>
+				<DeviceAccessPointItem ID="IDD_1" PhysicalSlots="0..3" ModuleIdentNumber="0x00020000" MinDeviceInterval="32" DNS_CompatibleName="pp72x48pn" FixedInSlots="0" ObjectUUID_LocalIndex="0" ImplementationType="ERTEC200" ExtendedAddressAssignmentSupported="true" >
+					<ModuleInfo>
+						<Name TextId="IDT_MOD_NAME_DAP1"/>
+						<InfoText TextId="IDT_INFO_DAP1"/>
+						<Family MainFamily="I/O" ProductFamily="SINUMERIK"/>
+						<VendorName Value="Siemens AG"/>
+						<OrderNumber Value="6FC5311-0AA00-XAA0"/>
+						<HardwareRelease Value="01"/>
+						<SoftwareRelease Value="V2.2"/>
+					</ModuleInfo>
+					<SubslotList>
+						<SubslotItem SubslotNumber="32768" TextId="IDT_SS_Interface"/>
+						<SubslotItem SubslotNumber="32769" TextId="IDT_SS_Port1"/>
+						<SubslotItem SubslotNumber="32770" TextId="IDT_SS_Port2"/>
+					</SubslotList>
+					<IOConfigData MaxInputLength="30" MaxOutputLength="30" MaxDataLength="60"/>
+					<UseableModules>
+						<!-- list all modules from ModuleList here -->
+						<ModuleItemRef ModuleItemTarget="IDM_1" AllowedInSlots="1..1"/>
+						<ModuleItemRef ModuleItemTarget="IDM_2" AllowedInSlots="2..2"/>
+						<ModuleItemRef ModuleItemTarget="IDM_3" AllowedInSlots="3..3"/>
+					</UseableModules>
+					<VirtualSubmoduleList>
+						<VirtualSubmoduleItem ID="IDS_D1" SubmoduleIdentNumber="0x00000002">
+							<IOData IOPS_Length="1" IOCS_Length="1"/>
+						</VirtualSubmoduleItem>
+					</VirtualSubmoduleList>
+					<SystemDefinedSubmoduleList>
+						<InterfaceSubmoduleItem IsochroneModeSupported="false" SupportedProtocols="SNMP;LLDP" SupportedMibs="MIB2" SupportedRT_Class="Class1" SubslotNumber="32768" TextId="IDT_Interface1" SubmoduleIdentNumber="0x00000003">
+						</InterfaceSubmoduleItem>
+						<PortSubmoduleItem SubslotNumber="32769" MAUType="100BASETXFD" TextId="IDT_Port1" SubmoduleIdentNumber="0x00000004"/>
+						<PortSubmoduleItem SubslotNumber="32770" MAUType="100BASETXFD" TextId="IDT_Port2" SubmoduleIdentNumber="0x00000004"/>
+					</SystemDefinedSubmoduleList>
+					<Graphics>
+						<GraphicItemRef Type="DeviceSymbol" GraphicItemTarget="IDGR_DEVICE"/>
+					</Graphics>
+				</DeviceAccessPointItem>
+			</DeviceAccessPointList>
+			<!-- ============================================================================================ -->
+			<ModuleList>
+				
+				<!--  PP 72/48  I/Os 9 / 6 Byte -->
+				<ModuleItem ID="IDM_1" ModuleIdentNumber="0x0000F002">
+					<ModuleInfo>
+						<Name TextId="IDT_MOD_NAME_TEL1"/>
+						<InfoText TextId="IDT_MOD_INFO_TEL1"/>
+					</ModuleInfo>
+					<VirtualSubmoduleList>
+						<VirtualSubmoduleItem ID="IDS_1" SubmoduleIdentNumber="0x00000002">
+							<IOData IOPS_Length="1" IOCS_Length= "1">
+								<Input Consistency="Item consistency">
+									<DataItem DataType="Unsigned8" TextId="IDT_DATAITEM_ACTVAL"/>
+									<DataItem DataType="Unsigned8" TextId="IDT_DATAITEM_ACTVAL"/>
+									<DataItem DataType="Unsigned8" TextId="IDT_DATAITEM_ACTVAL"/>
+									<DataItem DataType="Unsigned8" TextId="IDT_DATAITEM_ACTVAL"/>
+									<DataItem DataType="Unsigned8" TextId="IDT_DATAITEM_ACTVAL"/>
+									<DataItem DataType="Unsigned8" TextId="IDT_DATAITEM_ACTVAL"/>
+									<DataItem DataType="Unsigned8" TextId="IDT_DATAITEM_ACTVAL"/>
+									<DataItem DataType="Unsigned8" TextId="IDT_DATAITEM_ACTVAL"/>
+									<DataItem DataType="Unsigned8" TextId="IDT_DATAITEM_ACTVAL"/>
+								</Input>
+								<Output Consistency="Item consistency">
+									<DataItem DataType="Unsigned8" TextId="IDT_DATAITEM_REFVAL"/>
+									<DataItem DataType="Unsigned8" TextId="IDT_DATAITEM_REFVAL"/>
+									<DataItem DataType="Unsigned8" TextId="IDT_DATAITEM_REFVAL"/>
+									<DataItem DataType="Unsigned8" TextId="IDT_DATAITEM_REFVAL"/>
+									<DataItem DataType="Unsigned8" TextId="IDT_DATAITEM_REFVAL"/>
+									<DataItem DataType="Unsigned8" TextId="IDT_DATAITEM_REFVAL"/>
+								</Output>
+							</IOData>
+							<ModuleInfo>
+								<Name TextId="IDT_SM_NAME_TEL1"/>
+								<InfoText TextId="IDT_SM_INFO_TEL1"/>
+							</ModuleInfo>
+							</VirtualSubmoduleItem>
+					</VirtualSubmoduleList>
+				</ModuleItem>
+
+				<!-- Analogmodul  -->
+				<ModuleItem ID="IDM_2" ModuleIdentNumber="0x0000F003">
+					<ModuleInfo>
+						<Name TextId="IDT_MOD_NAME_TEL2"/>
+						<InfoText TextId="IDT_MOD_INFO_TEL2"/>
+					</ModuleInfo>
+					<VirtualSubmoduleList>
+						<VirtualSubmoduleItem ID="IDS_2" SubmoduleIdentNumber="0x00000003">
+							<IOData IOPS_Length="1" IOCS_Length= "1">
+								<Input Consistency="Item consistency">
+									<DataItem DataType="Unsigned16" TextId="IDT_DATAITEM_ACTVAL"/>
+									<DataItem DataType="Unsigned16" TextId="IDT_DATAITEM_ACTVAL"/>
+									<DataItem DataType="Unsigned16" TextId="IDT_DATAITEM_ACTVAL"/>
+									<DataItem DataType="Unsigned16" TextId="IDT_DATAITEM_ACTVAL"/>
+								</Input>
+								<Output Consistency="Item consistency">
+									<DataItem DataType="Unsigned16" TextId="IDT_DATAITEM_REFVAL"/>
+									<DataItem DataType="Unsigned16" TextId="IDT_DATAITEM_REFVAL"/>
+									<DataItem DataType="Unsigned16" TextId="IDT_DATAITEM_REFVAL"/>
+									<DataItem DataType="Unsigned16" TextId="IDT_DATAITEM_REFVAL"/>
+								</Output>
+							</IOData>
+							<ModuleInfo>
+								<Name TextId="IDT_SM_NAME_TEL2"/>
+								<InfoText TextId="IDT_SM_INFO_TEL2"/>
+							</ModuleInfo>
+						</VirtualSubmoduleItem>
+					</VirtualSubmoduleList>
+				</ModuleItem>
+
+				<!-- Diagnosemodul  -->
+				<ModuleItem ID="IDM_3" ModuleIdentNumber="0x0000F004">
+					<ModuleInfo>
+						<Name TextId="IDT_MOD_NAME_TEL3"/>
+						<InfoText TextId="IDT_MOD_INFO_TEL3"/>
+					</ModuleInfo>
+					<VirtualSubmoduleList>
+						<VirtualSubmoduleItem ID="IDS_3" SubmoduleIdentNumber="0x00000004">
+							<IOData IOPS_Length="1" IOCS_Length= "1">
+								<Input Consistency="Item consistency">
+									<DataItem DataType="Unsigned16" TextId="IDT_DATAITEM_ACTVAL"/>
+							</Input>
+							</IOData>
+							<ModuleInfo>
+								<Name TextId="IDT_SM_NAME_TEL3"/>
+								<InfoText TextId="IDT_SM_INFO_TEL3"/>
+							</ModuleInfo>
+						</VirtualSubmoduleItem>
+					</VirtualSubmoduleList>
+				</ModuleItem>
+
+			</ModuleList>
+
+
+			<!-- ============================================================================================ -->
+			<GraphicsList>
+				<GraphicItem ID="IDGR_DEVICE" GraphicFile="gsdpp-0001-0706"/>
+			</GraphicsList>
+			<!-- ============================================================================================ -->
+			<ExternalTextList>
+				<PrimaryLanguage>
+					<!-- module text -->
+					<Text TextId="IDT_MOD_NAME_TEL1" Value="72DI/48DO"/>
+					<Text TextId="IDT_MOD_INFO_TEL1" Value="72DI/48DO"/>
+					<Text TextId="IDT_SM_NAME_TEL1"  Value="72DI/48DO"/>
+					<Text TextId="IDT_SM_INFO_TEL1"  Value="72DI/48DO"/>
+					
+					<Text TextId="IDT_MOD_NAME_TEL2" Value="Option 2AI/2AO"/>
+					<Text TextId="IDT_MOD_INFO_TEL2" Value="Option 2AI/2AO"/>
+					<Text TextId="IDT_SM_NAME_TEL2"  Value="Option 2AI/2AO"/>
+					<Text TextId="IDT_SM_INFO_TEL2"  Value="Option 2AI/2AO"/>
+
+					<Text TextId="IDT_MOD_NAME_TEL3" Value="Option diagnostic 16 DI"/>
+					<Text TextId="IDT_MOD_INFO_TEL3" Value="Option diagnostic 16 DI"/>
+					<Text TextId="IDT_SM_NAME_TEL3"  Value="Option diagnostic 16 DI"/>
+					<Text TextId="IDT_SM_INFO_TEL3"  Value="Option diagnostic 16 DI"/>
+
+					<Text TextId="IDT_DATAITEM_ACTVAL" Value="actual input value"/>
+					<Text TextId="IDT_DATAITEM_REFVAL" Value="actual output value"/>
+										
+					<!-- DAP text -->
+					<Text TextId="IDT_FamilyDescription" Value="IO-Devices for motion control applications"/>
+					<Text TextId="IDT_MOD_NAME_DAP1" Value="PP 72/48"/>
+					<Text TextId="IDT_INFO_DAP1" Value="PROFINET IO-Device PP 72/48 for motion control applications"/>
+					<Text TextId="IDT_SS_Interface" Value="Interface"/>
+					<Text TextId="IDT_SS_Port1" Value="X1"/>
+					<Text TextId="IDT_SS_Port2" Value="X2"/>
+					<Text TextId="IDT_Interface1" Value="MCP"/>
+					<Text TextId="IDT_Port1" Value="port-001"/>
+					<Text TextId="IDT_Port2" Value="port-002"/>
+
+					
+				</PrimaryLanguage>
+				<Language xml:lang="de">
+					<!-- module text -->
+					<Text TextId="IDT_MOD_NAME_TEL1" Value="72DI/48DO"/>
+					<Text TextId="IDT_MOD_INFO_TEL1" Value="72DI/48DO"/>
+					<Text TextId="IDT_SM_NAME_TEL1"  Value="72DI/48DO"/>
+					<Text TextId="IDT_SM_INFO_TEL1"  Value="72DI/48DO"/>
+					
+					<Text TextId="IDT_MOD_NAME_TEL2" Value="Option 2AI/2AO"/>
+					<Text TextId="IDT_MOD_INFO_TEL2" Value="Option 2AI/2AO"/>
+					<Text TextId="IDT_SM_NAME_TEL2"  Value="Option 2AI/2AO"/>
+					<Text TextId="IDT_SM_INFO_TEL2"  Value="Option 2AI/2AO"/>
+
+					<Text TextId="IDT_MOD_NAME_TEL3" Value="Option diagnostic 16 DI"/>
+					<Text TextId="IDT_MOD_INFO_TEL3" Value="Option diagnostic 16 DI"/>
+					<Text TextId="IDT_SM_NAME_TEL3"  Value="Option diagnostic 16 DI"/>
+					<Text TextId="IDT_SM_INFO_TEL3"  Value="Option diagnostic 16 DI"/>
+
+					<Text TextId="IDT_DATAITEM_ACTVAL" Value="actual input value"/>
+					<Text TextId="IDT_DATAITEM_REFVAL" Value="actual output value"/>
+										
+					<!-- DAP text -->
+					<Text TextId="IDT_FamilyDescription" Value="IO-Devices for motion control applications"/>
+					<Text TextId="IDT_MOD_NAME_DAP1" Value="PP 72/48"/>
+					<Text TextId="IDT_INFO_DAP1" Value="PROFINET IO-Device PP 72/48 for motion control applications"/>
+					<Text TextId="IDT_SS_Interface" Value="Interface"/>
+					<Text TextId="IDT_SS_Port1" Value="X1"/>
+					<Text TextId="IDT_SS_Port2" Value="X2"/>
+					<Text TextId="IDT_Interface1" Value="MCP"/>
+					<Text TextId="IDT_Port1" Value="port-001"/>
+					<Text TextId="IDT_Port2" Value="port-002"/>
+					
+				</Language>
+				<Language xml:lang="es">
+					<!-- module text -->
+					<Text TextId="IDT_MOD_NAME_TEL1" Value="72DI/48DO"/>
+					<Text TextId="IDT_MOD_INFO_TEL1" Value="72DI/48DO"/>
+					<Text TextId="IDT_SM_NAME_TEL1"  Value="72DI/48DO"/>
+					<Text TextId="IDT_SM_INFO_TEL1"  Value="72DI/48DO"/>
+					
+					<Text TextId="IDT_MOD_NAME_TEL2" Value="Option 2AI/2AO"/>
+					<Text TextId="IDT_MOD_INFO_TEL2" Value="Option 2AI/2AO"/>
+					<Text TextId="IDT_SM_NAME_TEL2"  Value="Option 2AI/2AO"/>
+					<Text TextId="IDT_SM_INFO_TEL2"  Value="Option 2AI/2AO"/>
+
+					<Text TextId="IDT_MOD_NAME_TEL3" Value="Option diagnostic 16 DI"/>
+					<Text TextId="IDT_MOD_INFO_TEL3" Value="Option diagnostic 16 DI"/>
+					<Text TextId="IDT_SM_NAME_TEL3"  Value="Option diagnostic 16 DI"/>
+					<Text TextId="IDT_SM_INFO_TEL3"  Value="Option diagnostic 16 DI"/>
+
+					<Text TextId="IDT_DATAITEM_ACTVAL" Value="actual input value"/>
+					<Text TextId="IDT_DATAITEM_REFVAL" Value="actual output value"/>
+										
+					<!-- DAP text -->
+					<Text TextId="IDT_FamilyDescription" Value="IO-Devices for motion control applications"/>
+					<Text TextId="IDT_MOD_NAME_DAP1" Value="PP 72/48"/>
+					<Text TextId="IDT_INFO_DAP1" Value="PROFINET IO-Device PP 72/48 for motion control applications"/>
+					<Text TextId="IDT_SS_Interface" Value="Interface"/>
+					<Text TextId="IDT_SS_Port1" Value="X1"/>
+					<Text TextId="IDT_SS_Port2" Value="X2"/>
+					<Text TextId="IDT_Interface1" Value="MCP"/>
+					<Text TextId="IDT_Port1" Value="port-001"/>
+					<Text TextId="IDT_Port2" Value="port-002"/>
+					
+				</Language>
+				<Language xml:lang="fr">
+					<!-- module text -->
+					<Text TextId="IDT_MOD_NAME_TEL1" Value="72DI/48DO"/>
+					<Text TextId="IDT_MOD_INFO_TEL1" Value="72DI/48DO"/>
+					<Text TextId="IDT_SM_NAME_TEL1"  Value="72DI/48DO"/>
+					<Text TextId="IDT_SM_INFO_TEL1"  Value="72DI/48DO"/>
+					
+					<Text TextId="IDT_MOD_NAME_TEL2" Value="Option 2AI/2AO"/>
+					<Text TextId="IDT_MOD_INFO_TEL2" Value="Option 2AI/2AO"/>
+					<Text TextId="IDT_SM_NAME_TEL2"  Value="Option 2AI/2AO"/>
+					<Text TextId="IDT_SM_INFO_TEL2"  Value="Option 2AI/2AO"/>
+
+					<Text TextId="IDT_MOD_NAME_TEL3" Value="Option diagnostic 16 DI"/>
+					<Text TextId="IDT_MOD_INFO_TEL3" Value="Option diagnostic 16 DI"/>
+					<Text TextId="IDT_SM_NAME_TEL3"  Value="Option diagnostic 16 DI"/>
+					<Text TextId="IDT_SM_INFO_TEL3"  Value="Option diagnostic 16 DI"/>
+
+					<Text TextId="IDT_DATAITEM_ACTVAL" Value="actual input value"/>
+					<Text TextId="IDT_DATAITEM_REFVAL" Value="actual output value"/>
+										
+					<!-- DAP text -->
+					<Text TextId="IDT_FamilyDescription" Value="IO-Devices for motion control applications"/>
+					<Text TextId="IDT_MOD_NAME_DAP1" Value="PP 72/48"/>
+					<Text TextId="IDT_INFO_DAP1" Value="PROFINET IO-Device PP 72/48 for motion control applications"/>
+					<Text TextId="IDT_SS_Interface" Value="Interface"/>
+					<Text TextId="IDT_SS_Port1" Value="X1"/>
+					<Text TextId="IDT_SS_Port2" Value="X2"/>
+					<Text TextId="IDT_Interface1" Value="MCP"/>
+					<Text TextId="IDT_Port1" Value="port-001"/>
+					<Text TextId="IDT_Port2" Value="port-002"/>
+					
+				</Language>
+				<Language xml:lang="it">
+					<!-- module text -->
+					<Text TextId="IDT_MOD_NAME_TEL1" Value="72DI/48DO"/>
+					<Text TextId="IDT_MOD_INFO_TEL1" Value="72DI/48DO"/>
+					<Text TextId="IDT_SM_NAME_TEL1"  Value="72DI/48DO"/>
+					<Text TextId="IDT_SM_INFO_TEL1"  Value="72DI/48DO"/>
+					
+					<Text TextId="IDT_MOD_NAME_TEL2" Value="Option 2AI/2AO"/>
+					<Text TextId="IDT_MOD_INFO_TEL2" Value="Option 2AI/2AO"/>
+					<Text TextId="IDT_SM_NAME_TEL2"  Value="Option 2AI/2AO"/>
+					<Text TextId="IDT_SM_INFO_TEL2"  Value="Option 2AI/2AO"/>
+
+					<Text TextId="IDT_MOD_NAME_TEL3" Value="Option diagnostic 16 DI"/>
+					<Text TextId="IDT_MOD_INFO_TEL3" Value="Option diagnostic 16 DI"/>
+					<Text TextId="IDT_SM_NAME_TEL3"  Value="Option diagnostic 16 DI"/>
+					<Text TextId="IDT_SM_INFO_TEL3"  Value="Option diagnostic 16 DI"/>
+
+					<Text TextId="IDT_DATAITEM_ACTVAL" Value="actual input value"/>
+					<Text TextId="IDT_DATAITEM_REFVAL" Value="actual output value"/>
+										
+					<!-- DAP text -->
+					<Text TextId="IDT_FamilyDescription" Value="IO-Devices for motion control applications"/>
+					<Text TextId="IDT_MOD_NAME_DAP1" Value="PP 72/48"/>
+					<Text TextId="IDT_INFO_DAP1" Value="PROFINET IO-Device PP 72/48 for motion control applications"/>
+					<Text TextId="IDT_SS_Interface" Value="Interface"/>
+					<Text TextId="IDT_SS_Port1" Value="X1"/>
+					<Text TextId="IDT_SS_Port2" Value="X2"/>
+					<Text TextId="IDT_Interface1" Value="MCP"/>
+					<Text TextId="IDT_Port1" Value="port-001"/>
+					<Text TextId="IDT_Port2" Value="port-002"/>
+					
+				</Language>
+			</ExternalTextList>
+		</ApplicationProcess>
+	</ProfileBody>
+</ISO15745Profile>
